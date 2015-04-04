@@ -14,7 +14,6 @@ body {
   margin: auto;
   padding-top: 5px;
   border-radius: 5px;
-  border-bottom: 1px solid black;
 }
 
 .fruit-header {
@@ -30,6 +29,7 @@ body {
   width: 85%;
   color: black;
   font-size: 30px;
+  text-align: center;
 }
 
 button {
