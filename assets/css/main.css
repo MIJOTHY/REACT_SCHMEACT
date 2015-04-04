@@ -70,6 +70,22 @@ button {
   font-size: 15px;
 }
 
+/* Options item */
+.options-item {
+  height:20px;
+}
+
+button.clear {
+  font-size:10px;
+  color: white;
+  height:10px;
+  line-height:3px;
+  border-radius: 0px 5px 0px 5px;
+  position: relative;
+  top: 50%;
+  background-color: black;
+}
+
 /* Input placeholder styles */
 *::-webkit-input-placeholder {
     font-family: 'Raleway', sans-serif;
