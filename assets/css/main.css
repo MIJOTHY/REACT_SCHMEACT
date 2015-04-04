@@ -78,14 +78,15 @@ button {
 button.clear {
   font-size:10px;
   color: white;
-  height:10px;
+  height:20px;
   line-height:3px;
   border-radius: 0px 5px 0px 5px;
   position: relative;
-  top: 50%;
-  background-color: black;
 }
 
+#restart {
+  max-height: 15px;
+}
 /* Input placeholder styles */
 *::-webkit-input-placeholder {
     font-family: 'Raleway', sans-serif;
