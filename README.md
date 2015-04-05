@@ -99,7 +99,7 @@ Right, so we've done this, but there are two things wrong. Firstly, we haven't m
 ## WIP Key Koncept 2: Props
 Props are, as the name suggests, properties of a component instance. This is how components get access to data passed down to them. Owners pass ownee components their props, and those ownee components can reference those props in their `render` function in order to output them.  
 
-In FruitApp.js, we can see some data defined in the document, which we then reference in our render function. What this does is that it passes the `FRUITIES` array down to the FruitList component, and the FRUITIES component can access that array through `this.props.fruities`. Note the ownee component references the data through `this.props` + whatever name the owner has given it when passing it to the component. So if in our FruitApp render function we said `<FruitList fruitsOrChickens={FRUITIES} />`, FruitList would have to ask for `this.props.fruitsOrChickens`.    
+In FruitApp.js, we can see some data defined in the document, which we then reference in our render function. What this does is that it passes the `FRUITIES` array down to the FruitList component, and the FRUITIES component can access that array through `this.props.fruities`. Note the ownee component references the data through `this.props` + whatever name the owner has given it when passing it to the component. So if in our FruitApp render function we said `fruitsOrChickens={FRUITIES}`, FruitList would have to ask for `this.props.fruitsOrChickens`.    
 
 One important thing to remember is that __props should be treated as being immutable__. Never directly touch props. For this reason, our project so far is in the same position as it was when it was just an HTML page. It's got no functionality. However, we've come leaps and bounds since then. We're so close to making the app interactive and it's so easy you won't believe it.
 
@@ -126,9 +126,13 @@ incrementQuantity: function(id) {
 ```  
 Messy? The whole bloody thing's gonna get messy. We can tidy the whole thing up when we finish this tutorial and [learn about flux](https://github.com/MIJOTHY/FOR_FLUX_SAKE).
 Anyway, once we've done that, we can pass that function down to FruitList:  
-`<FruitList fruities={this.state.fruities} incrementQuantity={this.incrementQuantity} />`  
-And then on to FruitListItem, in FruitList's `.map()` function in the same way.   
-`<FruitListItem ... incrementQuantity={this.props.incrementQuantity}/>`  
+```js
+<FruitList fruities={this.state.fruities} incrementQuantity={this.incrementQuantity} />
+```  
+And then on to FruitListItem, in FruitList's `.map()` function in the same way.  
+```js
+<FruitListItem ... incrementQuantity={this.props.incrementQuantity}/>
+```  
 Once we've done that, we can go into FruitListItem, add a handler to the component that prevents default behaviour and then calls `this.props.incrementQuantity`, passing in `this.props.id`, tack on `onClick={this.plusHandler}` to our plus button! 
 If you're still gulping, pop open your browser window and have a look at the glorious product of your sweat and blood!    
 
@@ -140,20 +144,20 @@ I'm sure you know what I mean when I say you'll need to `.bind()` the value of `
 `map()` takes two parameters. I'll assume that you know that the first is a callback used for producing the new array element. The second is a value to use as `this` within the callback. An alternative way of doing this is to call `.bind()` on the function, passing as an argument whatever you want that function to use as `this`. But why do we need to do this?  
 The callback within map isn't setting what `this` should point to, nor is it an object method (in which case `this` would point to the object that is calling the method). Hence `this` panics, gets all wonky and points to the global object (i.e. the window). But our window doesn't have the props we need! Our component does. So we need to point to our component, and tell our callback within `.map()` to point to it too whenever it uses `this`. Luckily for us, `this` outside of the callback points to the component.   
 Why? Look at the render function. It's got a colon sat next to it, as you might if you were in the hospital waiting room. What does that mean? It means it's a method of an object. What object? The FruitList component! So `this` within the context of the render function (or any other function directly inside the component) points to the component. But once some other execution context is created (i.e. a function is called) that isn't directly within the component, or isn't called by the component itself, `this` will stop pointing to the component on its own.  
-So what do we do? Either use `.bind`: 
+So what do we do? Either use `.bind()`: 
 ```js
 function(fruit) {
 	return some crap in here
 }.bind(this)
 ```  
-or use the second `.map` parameter:
+or use the second `.map()` parameter:
 ```js
 .map(function(fruit) {some crap}, this)
 ```  
 
 ### Back to work
 Now let's try again, and we should be able to increment the number of any fruit! Woop Woop. Let's do the same for our decrement function, but add some spice. If the quantity of a fruit is 0 and it gets decremented, let's remove it! Same procedure, just with a little more logic within our forEach function. Instead of always pushing the potentially modified elements to the new array, we'll make sure not to push ones that have a quantity of 0 and have been decremented again. So, if `ele.quantity === 0`, we want to cease execution of the function. We could shorten this to `if(!ele.quantity)`, but that's less clear. As we're dealing with falsy values rather than strictly 0 values.
-```
+```js
 decrementQuantity: function(id) {
 	var newFruities = [];
 	this.state.fruities.forEach(function(ele) {
