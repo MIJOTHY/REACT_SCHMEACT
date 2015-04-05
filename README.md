@@ -10,12 +10,17 @@ With that in mind, we're going to want to break this app down into a number of d
 3. Reset the items on the list.
 4. Filter the items on the list with search terms.
 
-Now that we know what functionality we want from the app, let's make a mockup of it in html. If you `git clone` this repo and then open up mockup.html in your browser, you'll see something like this:   
+Now that we know what functionality we want from the app, let's make a mockup of it in html. 
+```
+git clone https://github.com/MIJOTHY/REACT_SCHMEACT.git 
+cd REACT_SCHMEACT
+```
+Open up mockup.html in your browser, and you'll see something like this:   
 ![](/assets/img/App-Mockup.png)
 
 Sweet. But there's one glaring problem.
 
-There's no functionality; it's basically just a picture. We want it to be functional. Where do we go from here? We need to break this shiznit down into __components__.
+There's no functionality; it's basically just a picture. We want it to be functional. Where do we go from here? We need to break this shiznit down into __components__. But before we do that, 
 
 ## Key Koncept 1: Komponents
 Any UI built with react has, as its basic building-blocks, components. A component is just a function. It takes some inputs, and gives us an output. More specifically, it takes in props and/or state (more on these later, but just read that as 'data' for now) and spits out HTML. Each component should be, ideally, a self-contained and distinct portion of your app that does only one thing. In other words, that single component of your app should be able to operate without knowledge of other components, and in any context, as long as it is given the data it needs.
@@ -42,7 +47,7 @@ Directly nested within the big green app, we have three distinct components. The
   * __The list item__ is mental. Each one of these has its fruit-text, a little counter, and buttons that decrement and increment that counter respectively. Impressed? You should be. Oh yeah, this is outlined in yellow, and is owned by the list.
 * __The footer__ is boring. In fact, the footer is so conscious of how boring it is that it spends its whole life wishing that those slightly-less-dull list items would just shrivel up and disappear. In case that wasn't clear enough for you, our footer holds a little button that clears all of the list items.    
 
-In actual fact, we can break the app down even more, but for learning's sake, I'll leave it as-is for now. If you want to see an extreme-component version, `git checkout crazycomponents`.
+In actual fact, we can break the app down even more, but for learning's sake, I'll leave it as-is for now. If you want to see an extreme-component version, `git checkout crazycomponents`, which doesn't exist yet.
 
 ## I'm bored, can you just get to the code?
 Nah.
@@ -54,8 +59,6 @@ Spike's mind was starting to unravel. He'd felt this before. Last time it turned
 
 ```
 // -- Terminal window: Let's install and get our build process running
-git clone https://github.com/MIJOTHY/REACT_SCHMEACT.git // If you haven't already
-cd REACT_SCHMEACT
 git checkout project
 npm install gulp -g
 npm install browserify -g
@@ -83,7 +86,7 @@ If you look in your folder, you'll see a src and a build folder, as well as an i
 In here we'll need to give our react components a way to be rendered - we'll need to bootstrap the entire project through this one poor file. How do we do that? Simple:
 ```js
 var React 	 = require("react");
-var FruitApp = require("./components/FruitApp");
+var FruitApp     = require("./components/FruitApp");
 
 // Here, we grab a DOM node with the ID of "content", and render our FruitApp into it.
 // We only need to render FruitApp as, as you will soon see, FruitApp is the parent and owner of
@@ -93,8 +96,7 @@ React.render(
 	document.getElementById("content")
 );
 ```
-*** MORE TO BE DONE HERE ***
-Right, so we've done this, but there are two things wrong. Firstly, we haven't made a FruitApp yet. Secondly, We're not asking for any script files in our index.html.
+Right, so we've done this, but there are two things wrong. Firstly, we haven't made a FruitApp yet. Secondly, We're not asking for any script files in our index.html. Let's add a script file pointing to `/build/main.js` just before we close the body tag, and start making files! Or alternatively, `git checkout props`.
 
 ## WIP Key Koncept 2: Props
 Props are, as the name suggests, properties of a component instance. This is how components get access to data passed down to them. Owners pass ownee components their props, and those ownee components can reference those props in their `render` function in order to output them.  
@@ -105,7 +107,7 @@ One important thing to remember is that __props should be treated as being immut
 
 Let's get moving to a version that allows _interactivity_. For that, we'll need to use __state__.
 
-## WIP Key Koncept 3: State
+## Key Koncept 3: State
 State is just as it says. That's not helpful? Tough.  
 But seriously, any time you'd want your UI to change, your application would be in a different state. This could even be as simple as having a different tab open. So in order to change our application, we need to use state. Props should be treated as immutable - we don't want to touch those.  
 You want as few of your components to be stateful as possible. What this practically means is that state should be kept in as top-level a component as possible. In this case, that'll be our FruitApp. "How can nested components change the state of the application then?", I hear you whine. Don't worry. Just as owners pass their own data to ownees through props, they can also pass __state-changing functions__ down to ownees. A top-level stateful component can define its own 'setState()' method and give it to lower-level components for usage.
@@ -132,28 +134,30 @@ And then on to FruitListItem, in FruitList's `.map()` function in the same way.
 Once we've done that, we can go into FruitListItem, add a handler to the component that prevents default behaviour and then calls `this.props.incrementQuantity`, passing in `this.props.id`, tack on `onClick={this.plusHandler}` to our plus button! 
 If you're still gulping, pop open your browser window and have a look at the glorious product of your sweat and blood!    
 
+
 Uh oh! Something's gone wrong!
 ![lol](/assets/img/uhoh.png)    
 
+
 ### Troubles with `this`
-I'm sure you know what I mean when I say you'll need to `.bind()` the value of `this` to `this`.  
-`map()` takes two parameters. I'll assume that you know that the first is a callback used for producing the new array element. The second is a value to use as `this` within the callback. An alternative way of doing this is to call `.bind()` on the function, passing as an argument whatever you want that function to use as `this`. But why do we need to do this?  
-The callback within map isn't setting what `this` should point to, nor is it an object method (in which case `this` would point to the object that is calling the method). Hence `this` panics, gets all wonky and points to the global object (i.e. the window). But our window doesn't have the props we need! Our component does. So we need to point to our component, and tell our callback within `.map()` to point to it too whenever it uses `this`. Luckily for us, `this` outside of the callback points to the component.   
+The problem lies in FruitList, and the problem lies with `this`. I'm sure you know what I mean when I say you'll need to `.bind()` the value of `this` to `this`.  
+`map()` & `forEach()` each take two parameters. I'll assume that you know that the first is a callback used for producing the new array element or doing something respectively. The second is a value to use as `this` within the callback. An alternative way of doing this is to call `.bind()` on the function, passing as an argument whatever you want that function to use as `this`. But even so, why do we need to do this?  
+The callback within our `forEach()` isn't setting what `this` should point to, nor is it an object method (in which case `this` would point to the object that is calling the method). Hence `this` panics, gets all wonky and points to the global object (i.e. the window). But our window doesn't have the props we need! Our component does. So we need to point to our component, and tell our callback within `.forEach()` to point to it too whenever it uses `this`. Luckily for us, `this` outside of the callback points to the component.   
 Why? Look at the render function. It's got a colon sat next to it, as you might if you were in the hospital waiting room. What does that mean? It means it's a method of an object. What object? The FruitList component! So `this` within the context of the render function (or any other function directly inside the component) points to the component. But once some other execution context is created (i.e. a function is called) that isn't directly within the component, or isn't called by the component itself, `this` will stop pointing to the component on its own.  
 So what do we do? Either use `.bind`: 
 ```js
 function(fruit) {
-	return some crap in here
+	// do some crap in here
 }.bind(this)
 ```  
 or use the second `.map` parameter:
 ```js
-.map(function(fruit) {some crap}, this)
+.forEach(function(fruit) {some crap}, this)
 ```  
 
 ### Back to work
-Now let's try again, and we should be able to increment the number of any fruit! Woop Woop. Let's do the same for our decrement function, but add some spice. If the quantity of a fruit is 0 and it gets decremented, let's remove it! Same procedure, just with a little more logic within our forEach function. Instead of always pushing the potentially modified elements to the new array, we'll make sure not to push ones that have a quantity of 0 and have been decremented again. So, if `ele.quantity === 0`, we want to cease execution of the function. We could shorten this to `if(!ele.quantity)`, but that's less clear. As we're dealing with falsy values rather than strictly 0 values.
-```
+Now let's try again, and we should be able to increment the number of any fruit! Woop Woop. Let's do the same for our decrement function, but add some spice. If the quantity of a fruit is 0 and it gets decremented, let's remove it! Same procedure, just with a little more logic within our forEach function. Instead of always pushing the potentially modified elements to the new array, we'll make sure not to push ones that have a quantity of 0 and have been decremented again. So, if `ele.quantity === 0`, we want to cease execution of the function. We could shorten this to `if(!ele.quantity)`, but that's less clear regarding what we want to do, as we're then dealing with falsy values rather than the strictly numerical values we actually care about.
+```js
 decrementQuantity: function(id) {
 	var newFruities = [];
 	this.state.fruities.forEach(function(ele) {
@@ -168,6 +172,8 @@ decrementQuantity: function(id) {
 ```    
 
 Sweet. We can increment, decrement, and get rid of individual items. Now let's figure out how to add items to our list. To the header!
+
+##WIP
 
 ## Where do I go now?
 __a.__ Play around with react a bit more, then to [a simple flux tutorial](https://github.com/MIJOTHY/FOR_FLUX_SAKE).
