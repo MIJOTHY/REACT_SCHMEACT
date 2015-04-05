@@ -10,7 +10,7 @@ With that in mind, we're going to want to break this app down into a number of d
 3. Reset the items on the list.
 4. Filter the items on the list with search terms.
 
-Now that we know what functionality we want from the app, let's make a mockup of it in html. If you open up mockup.html in your browser, you'll see something like this:
+Now that we know what functionality we want from the app, let's make a mockup of it in html. If you open up mockup.html in your browser, you'll see something like this:   
 ![](/assets/img/App-Mockup.png)
 
 Sweet. But there are two problems.
@@ -47,7 +47,9 @@ Nah.
 
 ## The Setup
 Spike was worried about this - he'd done too many deals not to know something was up. Since the phone call, he had this nagging feeling that Little Jimmy was a narc. Lucky for Jimmy, Spike liked his blunt humour, and his ability to hide himself in peoples' shoes had come in useful more times than Spike could count. Maybe, just maybe, Jimmy will prove my hunch wrong, and we can go back to playing solitaire together later. "What the hell is happening to me", Spike thought. "Solitaire is a solo game".   
+
 Spike's mind was starting to unravel. He'd felt this before. Last time it turned out he was actually an old lady stuck in a television set. God that was a pain, he wheezed. Why was he wheezing? As he kept reading, he started to realise that actually he wasn't about to be set up by Little Jimmy. He didn't even know a Little Jimmy. It started to dawn on Spike that he'd been half-way through reading something when he was transported into what seemed like a scene from a cheesy mafia film. In fact, he remembered very clearly what he was doing. He'd just about got to the end of his patience with a smartass react tutorial that didnt even have any code in it, when he saw the start of a strained joke about a setup.    
+
 Now that he thought about it, he didn't need to do any setup. Spike already knew about JSX from his army days. He knew that it was a top-secret technology used in the war, a way to write XML syntax in javascript code, so the rumours went. He'd also been told as a young squirt by his pa about browserify, or something like that, which apparently let its wielder use the node/commonjs 'require'/'module.exports' pattern in client-side js. He'd also heard much about the mythical gulp, the fleet-of-foot task runner that did all of his build transpiling and such for him. Spike found himself slipping more and more into a fantasy novel, and as the bright screen morphed into rolling hills and he turned into an elf, he saw one last mocking image on the monitor:
 
 ```
