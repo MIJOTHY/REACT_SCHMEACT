@@ -54,6 +54,7 @@ Spike's mind was starting to unravel. He'd felt this before. Last time it turned
 // -- Terminal window: Let's install and get our build process running
 git clone https://github.com/MIJOTHY/REACT_SCHMEACT.git // If you haven't already
 cd REACT_SCHMEACT
+git checkout project
 npm install gulp -g
 npm install browserify -g
 npm install
@@ -69,12 +70,12 @@ localhost:8000
 You may have a few questions:
 What just happened? Head to the notes if you're concerned.
 Why did nothing appear? Because we got no code.  
-  
+
 For the less suspicious among you, let's get coding woop woop.
 
 ## The Code
 Although it's tempting to write another story, and I know you'd love me for it, I want to get coding just as much as you do, so stop distracting me and let's get on with it.  
-If you look in your folder, you'll see a src and a build folder. We never touch the build folder but we do touch the src folder. the build js is made for us automatically by gulp's task running. Src is where we work our magic. In there you'll see two things - main.js, and a components folder.
+If you look in your folder, you'll see a src and a build folder, as well as an index.html. We never touch the build folder but we do touch the src folder. the build js is made for us automatically by gulp's task running. Src is where we work our magic. In there you'll see two things - main.js, and a components folder.
 
 ## WIP Key Koncept 2: Props
 
