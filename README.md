@@ -14,6 +14,7 @@ Now that we know what functionality we want from the app, let's make a mockup of
 ```
 git clone https://github.com/MIJOTHY/REACT_SCHMEACT.git 
 cd REACT_SCHMEACT
+git checkout mockup
 ```
 Open up mockup.html in your browser, and you'll see something like this:   
 ![](/assets/img/App-Mockup.png)
