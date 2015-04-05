@@ -6,7 +6,7 @@ var reactify    = require('reactify');
 
 gulp.task('browserify', function() { // Defining our gulp task for running browserify
     var bundler = browserify({
-        entries: ['./src/app.js'], // Our entry point is the app.js file in the src folder 
+        entries: ['./src/main.js'], // Our entry point is the main.js file in the src folder 
         transform: [reactify], // Since we're writing JSX, we need to transform the build output back to js
         debug: true,
         cache: {}, packageCache: {}, fullPaths: true
@@ -18,7 +18,7 @@ gulp.task('browserify', function() { // Defining our gulp task for running brows
         var updateStart = Date.now();
         console.log('Updating!');
         watcher.bundle()
-        .pipe(source('app.js'))
+        .pipe(source('main.js'))
         .pipe(gulp.dest('./build/')); // We want our output file to be placed in the build folder
         console.log('Updated! That took ', (Date.now() - updateStart) + 'ms');
     })

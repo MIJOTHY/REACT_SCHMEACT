@@ -70,7 +70,7 @@ What just happened? Head to the notes if you're concerned. For the less suspicio
 
 ## The Code
 Although it's tempting to write another story, and I know you'd love me for it, I want to get coding just as much as you do, so stop distracting me and let's get on with it.  
-If you look in your folder, you'll see a src and a build folder. We never touch the build folder but we do touch the src folder. the build js is made for us automatically by gulp's task running. Src is where we work our magic. In there you'll see two things - app.js, and a components folder.
+If you look in your folder, you'll see a src and a build folder. We never touch the build folder but we do touch the src folder. the build js is made for us automatically by gulp's task running. Src is where we work our magic. In there you'll see two things - main.js, and a components folder.
 
 ## WIP Key Koncept 2: Props
 
