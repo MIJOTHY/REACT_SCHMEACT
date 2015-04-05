@@ -2,7 +2,7 @@
 A simple tutorial for simple people who want to use react.
 
 ## The plan
-We'll be making a 5-a-day tracker app, because we like pretending to be healthy (read: you). The aim of this app is to be able to add fruit items to a list and keep track of how many of those items you've eaten, as well as being able to clear and search through the list. And by 'fruit', I mean whatever you want.
+We'll be making a 5-a-day tracker app, because we like pretending to be healthy (read: you). The aim of this app is to be able to add fruit items to a list and keep track of how many of those items you've eaten, as well as being able to search through and clear the list. And by 'fruit', I mean whatever you want.
 With that in mind, we're going to want to break this app down into a number of distinct pieces of functionality. We want to be able to:
 
 1. Add food items to a list.
@@ -13,9 +13,9 @@ With that in mind, we're going to want to break this app down into a number of d
 Now that we know what functionality we want from the app, let's make a mockup of it in html. If you open up mockup.html in your browser, you'll see something like this:   
 ![](/assets/img/App-Mockup.png)
 
-Sweet. But there are two problems.
+Sweet. But there's one glaring problem.
 
-Firstly, some mug has put chicken in our 5-a-day tracker. More importantly though, there's no functionality; it's basically just a picture. We want it to be functional. Where do we go from here? We need to break this shiznit down into __components__.
+There's no functionality; it's basically just a picture. We want it to be functional. Where do we go from here? We need to break this shiznit down into __components__.
 
 ## Key Koncept 1: Komponents
 Any UI built with react has, as its basic building-blocks, components. A component is just a function. It takes some inputs, and gives us an output. More specifically, it takes in props and/or state (more on these later, but just read that as 'data' for now) and spits out HTML. Each component should be, ideally, a self-contained and distinct portion of your app that does only one thing. In other words, that single component of your app should be able to operate without knowledge of other components, and in any context, as long as it is given the data it needs.
@@ -64,9 +64,9 @@ python -m SimpleHTTPServer
 localhost:8000
 ```
 
-## Key concept 2: Props
+## WIP Key Koncept 2: Props
 
-## Key concept 3: State
+## WIP Key Koncept 3: State
 
 ## Where do I go now?
 __a.__ Play around with react a bit more, then to [a simple flux tutorial](https://github.com/MIJOTHY/FOR_FLUX_SAKE).
