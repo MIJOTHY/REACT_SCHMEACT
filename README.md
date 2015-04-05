@@ -66,7 +66,11 @@ python -m SimpleHTTPServer
 localhost:8000
 ```  
 
-What just happened? Head to the notes if you're concerned. For the less suspicious among you, let's get coding woop woop.
+You may have a few questions:
+What just happened? Head to the notes if you're concerned.
+Why did nothing appear? Because we got no code.  
+  
+For the less suspicious among you, let's get coding woop woop.
 
 ## The Code
 Although it's tempting to write another story, and I know you'd love me for it, I want to get coding just as much as you do, so stop distracting me and let's get on with it.  
