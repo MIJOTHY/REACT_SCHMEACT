@@ -40,7 +40,9 @@ Directly nested within the big green app, we have three distinct components. The
 * __The header__ has an input and a button. You can see the input placeholder text as the title of the app, and the button as that little pokemon-card-style leaf. Basically, the header has two roles. Firstly, and formostenly (!??!!), it lets us type in the names of fruit, click the button and they get added to the list. Secondmostly, as we type in the names of fruit, it filters the list accordingly. Why do we need the filter? Why do you need to ask questions?
 * __The list__ is just a holder for list items. Or is it? The list component actually generates the list items. It takes a bunch of data, and spits out a list item for every suitable chunk of data in there. Our app would be pretty cr-app without it (lmao).
   * __The list item__ is mental. Each one of these has its fruit-text, a little counter, and buttons that decrement and increment that counter respectively. Impressed? You should be. Oh yeah, this is outlined in yellow, and is owned by the list.
-* __The footer__ is boring. In fact, the footer is so conscious of how boring it is that it spends its whole life wishing that those slightly-less-dull list items would just shrivel up and disappear. In case that wasn't clear enough for you, our footer holds a little button that clears all of the list items.
+* __The footer__ is boring. In fact, the footer is so conscious of how boring it is that it spends its whole life wishing that those slightly-less-dull list items would just shrivel up and disappear. In case that wasn't clear enough for you, our footer holds a little button that clears all of the list items.    
+
+In actual fact, we can break the app down even more, but for learning's sake, I'll leave it as-is for now. If you want to see an extreme-component version, `git checkout crazycomponents`.
 
 ## I'm bored, can you just get to the code?
 Nah.
@@ -91,11 +93,81 @@ React.render(
 	document.getElementById("content")
 );
 ```
+*** MORE TO BE DONE HERE ***
 Right, so we've done this, but there are two things wrong. Firstly, we haven't made a FruitApp yet. Secondly, We're not asking for any script files in our index.html.
 
 ## WIP Key Koncept 2: Props
+Props are, as the name suggests, properties of a component instance. This is how components get access to data passed down to them. Owners pass ownee components their props, and those ownee components can reference those props in their `render` function in order to output them.  
+
+In FruitApp.js, we can see some data defined in the document, which we then reference in our render function. What this does is that it passes the `FRUITIES` array down to the FruitList component, and the FRUITIES component can access that array through `this.props.fruities`. Note the ownee component references the data through `this.props` + whatever name the owner has given it when passing it to the component. So if in our FruitApp render function we said `<FruitList fruitsOrChickens={FRUITIES} />`, FruitList would have to ask for `this.props.fruitsOrChickens`.    
+
+One important thing to remember is that __props should be treated as being immutable__. Never directly touch props. For this reason, our project so far is in the same position as it was when it was just an HTML page. It's got no functionality. However, we've come leaps and bounds since then. We're so close to making the app interactive and it's so easy you won't believe it.
+
+Let's get moving to a version that allows _interactivity_. For that, we'll need to use __state__.
 
 ## WIP Key Koncept 3: State
+State is just as it says. That's not helpful? Tough.  
+But seriously, any time you'd want your UI to change, your application would be in a different state. This could even be as simple as having a different tab open. So in order to change our application, we need to use state. Props should be treated as immutable - we don't want to touch those.  
+You want as few of your components to be stateful as possible. What this practically means is that state should be kept in as top-level a component as possible. In this case, that'll be our FruitApp. "How can nested components change the state of the application then?", I hear you whine. Don't worry. Just as owners pass their own data to ownees through props, they can also pass __state-changing functions__ down to ownees. A top-level stateful component can define its own 'setState()' method and give it to lower-level components for usage.
+
+To recap, any time we want the application to respond to some action or input (be it a click, or a server response), we'll need to change the state of the application. But we should change state in as few places as possible. We're keeping state in FruitApp, so we need to be able to set the state of FruitApp from places in the app. We do that by passing callbacks down through props. Let's return to our FruitListItem and sort out those increment and decrement buttons!
+
+### Increment and Decrement
+Let's define an action in FruitApp that we can pass down to FruitListItem. This function will take an id, look for a fruit in our current state with that id, increment its quantity, and call `setState()` to re-render the application. There are a number of ways we could do this, but since fruities is an array, I'm going to `.forEach()` over it, and if an element's id matches the id passed as an argument, I'll increment the value. I'll then push every element to a newFruities array, and then set the state to the new array.  
+```js
+incrementQuantity: function(id) {
+	var newFruities = [];
+	this.state.fruities.forEach(function(ele) {
+		if (ele.id === id) ele.quantity += 1;
+		return newFruities.push(ele);
+	});
+	return this.setState({fruities: newFruities});
+}
+```  
+Messy? The whole bloody thing's gonna get messy. We can tidy the whole thing up when we finish this tutorial and [learn about flux](https://github.com/MIJOTHY/FOR_FLUX_SAKE).
+Anyway, once we've done that, we can pass that function down to FruitList:  
+`<FruitList fruities={this.state.fruities} incrementQuantity={this.incrementQuantity} />`  
+And then on to FruitListItem, in FruitList's `.map()` function in the same way.   
+`<FruitListItem ... incrementQuantity={this.props.incrementQuantity}/>`  
+Once we've done that, we can go into FruitListItem, add a handler to the component that prevents default behaviour and then calls `this.props.incrementQuantity`, passing in `this.props.id`, tack on `onClick={this.plusHandler}` to our plus button! 
+If you're still gulping, pop open your browser window and have a look at the glorious product of your sweat and blood!    
+
+Uh oh! Something's gone wrong!
+![lol](/assets/img/uhoh.png)    
+
+### Troubles with `this`
+I'm sure you know what I mean when I say you'll need to `.bind()` the value of `this` to `this`.  
+`map()` takes two parameters. I'll assume that you know that the first is a callback used for producing the new array element. The second is a value to use as `this` within the callback. An alternative way of doing this is to call `.bind()` on the function, passing as an argument whatever you want that function to use as `this`. But why do we need to do this?  
+The callback within map isn't setting what `this` should point to, nor is it an object method (in which case `this` would point to the object that is calling the method). Hence `this` panics, gets all wonky and points to the global object (i.e. the window). But our window doesn't have the props we need! Our component does. So we need to point to our component, and tell our callback within `.map()` to point to it too whenever it uses `this`. Luckily for us, `this` outside of the callback points to the component.   
+Why? Look at the render function. It's got a colon sat next to it, as you might if you were in the hospital waiting room. What does that mean? It means it's a method of an object. What object? The FruitList component! So `this` within the context of the render function (or any other function directly inside the component) points to the component. But once some other execution context is created (i.e. a function is called) that isn't directly within the component, or isn't called by the component itself, `this` will stop pointing to the component on its own.  
+So what do we do? Either use `.bind`: 
+```js
+function(fruit) {
+	return some crap in here
+}.bind(this)
+```  
+or use the second `.map` parameter:
+```js
+.map(function(fruit) {some crap}, this)
+```  
+
+### Back to work
+Now let's try again, and we should be able to increment the number of any fruit! Woop Woop. Let's do the same for our decrement function, but add some spice. If the quantity of a fruit is 0 and it gets decremented, let's remove it! Same procedure, just with a little more logic within our forEach function. Instead of always pushing the potentially modified elements to the new array, we'll make sure not to push ones that have a quantity of 0 and have been decremented again. So, if `ele.quantity === 0`, we want to cease execution of the function. We could shorten this to `if(!ele.quantity)`, but that's less clear. As we're dealing with falsy values rather than strictly 0 values.
+```
+decrementQuantity: function(id) {
+	var newFruities = [];
+	this.state.fruities.forEach(function(ele) {
+		if (ele.id === id) {
+			if (ele.quantity === 0) return;
+			ele.quantity -= 1;
+		}
+		return newFruities.push(ele);
+	});
+	return this.setState({fruities: newFruities});
+}
+```    
+
+Sweet. We can increment, decrement, and get rid of individual items. Now let's figure out how to add items to our list. To the header!
 
 ## Where do I go now?
 __a.__ Play around with react a bit more, then to [a simple flux tutorial](https://github.com/MIJOTHY/FOR_FLUX_SAKE).
