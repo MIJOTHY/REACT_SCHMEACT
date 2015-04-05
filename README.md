@@ -74,3 +74,12 @@ __a.__ Play around with react a bit more, then to [a simple flux tutorial](https
 _or_
 
 __b.__ [Away to a place that will teach you to code really well for free](http://foundersandcoders.org/apply.html)
+
+### The Glossary 
+...
+Now that Spike thought about it, he didn't need to do any setup. All the setup had been done for him. Spike already knew about __JSX__ from his army days. He knew that it was a top-secret technology used in the war, a way to write __XML syntax in javascript code__, so the rumours went.  
+He'd also been told as a young squirt by his pa about __browserify__, or something like that, which apparently let its wielder use the node/commonjs __'require'/'module.exports' pattern in client-side js__. It would look in a single entry point js file you gave it, and whenever it found a 'require', it would jump to that file and do the same there, all the time adding these files to its massive js bundle which it would eventually dump elsewhere for you to reference in your html.  
+Stuff like __watchify__ apparently made the process much faster by only rebuilding parts of the bundled JS which had been changed. while __reactify__ transformed JSX into normal javascript during this bundling process, eliminating the need for a seperate compiler.  
+Perhaps most importantly though, he'd also heard much about the mythical __gulp__, the fleet-of-foot __task runner that would do all of his build tasks and such for him__, provided he gave it instructions on what to do each time he called its name in a strange thing called a __gulpfile__.  
+Spike found himself slipping more and more into a fantasy novel, and as the bright screen morphed into rolling hills and he turned into a lost infant elf, he saw one last mocking image on the monitor:  
+__Jest__ 
