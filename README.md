@@ -39,8 +39,8 @@ K, so at the top of the food-chain, we've got the __big green app__. This holds 
 Directly nested within the big green app, we have three distinct components. These are outlined in that pretty sickly turquoise. These each do something different:
 * __The header__ has an input and a button. You can see the input placeholder text as the title of the app, and the button as that little pokemon-card-style leaf. Basically, the header has two roles. Firstly, and formostenly (!??!!), it lets us type in the names of fruit, click the button and they get added to the list. Secondmostly, as we type in the names of fruit, it filters the list accordingly. Why do we need the filter? Why do you need to ask questions?
 * __The list__ is just a holder for list items. Or is it? The list component actually generates the list items. It takes a bunch of data, and spits out a list item for every suitable chunk of data in there. Our app would be pretty cr-app without it (lmao).
-* __The list item__ is mental. Each one of these has its fruit-text, a little counter, and buttons that decrement and increment that counter respectively. Impressed? You should be.
-* __The footer__ isn't very special, contrary to what its parent tells it. In fact, the footer is so conscious of how boring it is that it spends its whole life wishing that those slightly-less dull list items would just shrivel and disappear. In case that wasn't clear enough, our footer holds a little button that clears all of the list items.
+  * __The list item__ is mental. Each one of these has its fruit-text, a little counter, and buttons that decrement and increment that counter respectively. Impressed? You should be. Oh yeah, this is outlined in yellow, and is owned by the list.
+* __The footer__ isn't very special, contrary to what its parent tells it. In fact, the footer is so conscious of how boring it is that it spends its whole life wishing that those slightly-less-dull list items would just shrivel up and disappear. In case that wasn't clear enough, our footer holds a little button that clears all of the list items.
 
 ## I'm bored, can you just get to the code?
 Nah.
