@@ -10,7 +10,7 @@ With that in mind, we're going to want to break this app down into a number of d
 3. Reset the items on the list.
 4. Filter the items on the list with search terms.
 
-Now that we know what functionality we want from the app, let's make a mockup of it in html. If you open up mockup.html in your browser, you'll see something like this:   
+Now that we know what functionality we want from the app, let's make a mockup of it in html. If you `git clone` this repo and then open up mockup.html in your browser, you'll see something like this:   
 ![](/assets/img/App-Mockup.png)
 
 Sweet. But there's one glaring problem.
@@ -51,18 +51,26 @@ Spike was worried about this - he'd done too many deals not to know something wa
 Spike's mind was starting to unravel. He'd felt this before. Last time it turned out he was actually an old lady stuck in a television set. God that was a pain, he wheezed. Why was he wheezing? As he kept reading, he started to realise that actually he wasn't about to be set up by Little Jimmy. He didn't even know a Little Jimmy. It started to dawn on Spike that he'd been half-way through reading something when he was transported into what seemed like a scene from a cheesy mafia film. In fact, he remembered very clearly what he was doing. He'd just about got to the end of his patience with a smartass react tutorial that didnt even have any code in it, when he saw the start of a strained joke about a setup.    
 
 ```
-// -- Terminal window
+// -- Terminal window: Let's install and get our build process running
+git clone https://github.com/MIJOTHY/REACT_SCHMEACT.git // If you haven't already
+cd REACT_SCHMEACT
+npm install gulp -g
+npm install browserify -g
 npm install
 gulp
 
-// -- Another Terminal Window
+// -- Another Terminal Window: Let's start up a basic static file server
 python -m SimpleHTTPServer
 
-// -- Browser window
+// -- Browser window: Let's navigate to where our content is being served
 localhost:8000
 ```  
 
-For more information about 'The Setup', see the glossary at the end. Let's get coding woop woop.
+What just happened? Head to the notes if you're concerned. For the less suspicious among you, let's get coding woop woop.
+
+## The Code
+Although it's tempting to write another story, and I know you'd love me for it, I want to get coding just as much as you do, so stop distracting me and let's get on with it.  
+If you look in your folder, you'll see a src and a build folder. We never touch the build folder but we do touch the src folder. the build js is made for us automatically by gulp's task running. Src is where we work our magic. In there you'll see two things - app.js, and a components folder.
 
 ## WIP Key Koncept 2: Props
 

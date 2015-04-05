@@ -1,0 +1,29 @@
+{
+  "name": "REACT_SCHMEACT",
+  "version": "1.0.0",
+  "description": "Simple react, simple people",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MIJOTHY/REACT_SCHMEACT.git"
+  },
+  "author": "MIJOTHY",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MIJOTHY/REACT_SCHMEACT/issues"
+  },
+  "homepage": "https://github.com/MIJOTHY/REACT_SCHMEACT",
+  "dependencies": {
+    "react": "^0.13.1"
+  },
+  "devDependencies": {
+    "browserify": "^9.0.7",
+    "gulp": "^3.8.11",
+    "reactify": "^1.1.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.1.0"
+  }
+}
