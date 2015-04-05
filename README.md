@@ -79,7 +79,7 @@ For the less suspicious among you, let's get coding woop woop.
 Although it's tempting to write another story, and I know you'd love me for it, I want to get coding just as much as you do, so stop distracting me and let's get on with it.  
 If you look in your folder, you'll see a src and a build folder, as well as an index.html. We never touch the build folder but we do touch the src folder. the build js is made for us automatically by gulp's task running. Src is where we work our magic. In there you'll see two things - main.js, and a components folder.  
 
-### Main.js
+## Main.js
 In here we'll need to give our react components a way to be rendered - we'll need to bootstrap the entire project through this one poor file. How do we do that? Simple:
 ```js
 var React 	 = require("react");
@@ -93,8 +93,11 @@ React.render(
 	document.getElementById("content")
 );
 ```
-*** MORE TO BE DONE HERE ***
-Right, so we've done this, but there are two things wrong. Firstly, we haven't made a FruitApp yet. Secondly, We're not asking for any script files in our index.html.
+Right, so we've done this, but there are two things wrong. Firstly, we haven't made a FruitApp yet. Secondly, We're not asking for any script files in our index.html. So let's add a line just before we close the body of the js file:
+```html
+<script type="text/javascript" src="/build/main.js"></script>
+```
+Time to make FruitApp.js
 
 ## WIP Key Koncept 2: Props
 Props are, as the name suggests, properties of a component instance. This is how components get access to data passed down to them. Owners pass ownee components their props, and those ownee components can reference those props in their `render` function in order to output them.  
