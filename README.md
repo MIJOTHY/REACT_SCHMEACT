@@ -1,5 +1,17 @@
 # ![react logo](/assets/img/react_logo_fandc.png) REACT_SCHMEACT ![react logo](/assets/img/react_logo_fandc.png)
-A simple tutorial for simple people who want to use react.
+A simple tutorial for simple people who want to use react.  
+If you don't care about the tutorial and just want to see the final version:
+```
+git clone https://github.com/MIJOTHY/REACT_SCHMEACT.git 
+cd REACT_SCHMEACT
+git checkout finalversion
+
+npm install browserify gulp -g
+npm install
+gulp build
+
+python -m SimpleHTTPServer
+```
 
 ## The plan
 We'll be making a 5-a-day tracker app, because we like pretending to be healthy (read: you). The aim of this app is to be able to add fruit items to a list and keep track of how many of those items you've eaten, as well as being able to search through and clear the list. And by 'fruit', I mean whatever you want.
@@ -12,8 +24,6 @@ With that in mind, we're going to want to break this app down into a number of d
 
 Now that we know what functionality we want from the app, let's make a mockup of it in html. 
 ```
-git clone https://github.com/MIJOTHY/REACT_SCHMEACT.git 
-cd REACT_SCHMEACT
 git checkout mockup
 ```
 Open up mockup.html in your browser, and you'll see something like this:   
