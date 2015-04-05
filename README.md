@@ -75,7 +75,23 @@ For the less suspicious among you, let's get coding woop woop.
 
 ## The Code
 Although it's tempting to write another story, and I know you'd love me for it, I want to get coding just as much as you do, so stop distracting me and let's get on with it.  
-If you look in your folder, you'll see a src and a build folder, as well as an index.html. We never touch the build folder but we do touch the src folder. the build js is made for us automatically by gulp's task running. Src is where we work our magic. In there you'll see two things - main.js, and a components folder.
+If you look in your folder, you'll see a src and a build folder, as well as an index.html. We never touch the build folder but we do touch the src folder. the build js is made for us automatically by gulp's task running. Src is where we work our magic. In there you'll see two things - main.js, and a components folder.  
+
+### Main.js
+In here we'll need to give our react components a way to be rendered - we'll need to bootstrap the entire project through this one poor file. How do we do that? Simple:
+```js
+var React 	 = require("react");
+var FruitApp = require("./components/FruitApp");
+
+// Here, we grab a DOM node with the ID of "content", and render our FruitApp into it.
+// We only need to render FruitApp as, as you will soon see, FruitApp is the parent and owner of
+// all our other components.
+React.render(
+	<FruitApp />, 
+	document.getElementById("content")
+);
+```
+Right, so we've done this, but there are two things wrong. Firstly, we haven't made a FruitApp yet. Secondly, We're not asking for any script files in our index.html.
 
 ## WIP Key Koncept 2: Props
 
