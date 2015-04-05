@@ -2,7 +2,7 @@
 A simple tutorial for simple people who want to use react.
 
 ## The plan
-We'll be making a 5-a-day tracker app. The aim of this app is to be able to add food items to a list and keep track of how many of those items you've eaten, as well as being able to clear and search through the list.
+We'll be making a 5-a-day tracker app. The aim of this app is to be able to add fruit items to a list and keep track of how many of those items you've eaten, as well as being able to clear and search through the list. And by 'fruit', I mean whatever you want.
 With that in mind, we're going to want to break this app down into a number of distinct pieces of functionality. We want to be able to:
 
 1. Add food items to a list.
@@ -17,7 +17,7 @@ Sweet. But there are two problems.
 
 Firstly, some mug has put chicken in our 5-a-day tracker. More importantly though, there's no functionality; it's basically just a picture. We want it to be functional. Where do we go from here? We need to break this shiznit down into __components__.
 
-## Key concept 1: Components
+## Key Koncept 1: Komponents
 Any UI built with react has, as its basic building-blocks, components. A component is just a function. It takes some inputs, and gives us an output. More specifically, it takes in props and/or state (more on these later, but just read that as 'data' for now) and spits out HTML. Each component should be, ideally, a self-contained and distinct portion of your app that does only one thing. In other words, that single component of your app should be able to operate without knowledge of other components, and in any context, as long as it is given the data it needs.
 
 Components stand in a heirarchical relationship. We will see this fairly clearly when we (finally) start writing our code, and we see components being rendered within other components' render functions. Concerning types of relationship, instances of react components can be described according to the standard DOM parent-child relationship, but a more fruitful and precise description of component heirarchy references the owner-ownee relationship. An owner component is just one that passes data (props) down to ownee components.
