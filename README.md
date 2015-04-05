@@ -2,7 +2,7 @@
 A simple tutorial for simple people who want to use react.
 
 ## The plan
-We'll be making a 5-a-day tracker app. The aim of this app is to be able to add fruit items to a list and keep track of how many of those items you've eaten, as well as being able to clear and search through the list. And by 'fruit', I mean whatever you want.
+We'll be making a 5-a-day tracker app, because we like pretending to be healthy (read: you). The aim of this app is to be able to add fruit items to a list and keep track of how many of those items you've eaten, as well as being able to clear and search through the list. And by 'fruit', I mean whatever you want.
 With that in mind, we're going to want to break this app down into a number of distinct pieces of functionality. We want to be able to:
 
 1. Add food items to a list.
