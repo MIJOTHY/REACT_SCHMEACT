@@ -91,7 +91,7 @@ For the less suspicious among you, let's get coding woop woop.
 
 ## The Code
 Although it's tempting to write another story, and I know you'd love me for it, I want to get coding just as much as you do, so stop distracting me and let's get on with it.  
-If you look in your folder, you'll see a src and a build folder, as well as an index.html. We never touch the build folder but we do touch the src folder. the build js is made for us automatically by gulp's task running. Src is where we work our magic. In there you'll see two things - main.js, and a components folder.  
+If you look in your folder, you'll see a src and a build folder, as well as an index.html. We never touch the build folder but we do touch the src folder. The build js is made for us automatically by gulp's task running. Src is where we work our magic. In there you'll see two things - main.js, and a components folder.  
 
 ### Main.js
 In here we'll need to give our react components a way to be rendered - we'll need to bootstrap the entire project through this one poor file. How do we do that? Simple:
@@ -121,12 +121,12 @@ Let's get moving to a version that allows _interactivity_. For that, we'll need 
 ## Key Koncept 3: State
 State is just as it says. That's not helpful? Tough.  
 But seriously, any time you'd want your UI to change, your application would be in a different state. This could even be as simple as having a different tab open. So in order to change our application, we need to use state. Props should be treated as immutable - we don't want to touch those.  
-You want as few of your components to be stateful as possible. What this practically means is that state should be kept in as top-level a component as possible. In this case, that'll be our FruitApp. "How can nested components change the state of the application then?", I hear you whine. Don't worry. Just as owners pass their own data to ownees through props, they can also pass __state-changing functions__ down to ownees. A top-level stateful component can define its own 'setState()' method and give it to lower-level components for usage.
+You want as few of your components to be stateful as possible. What this practically means is that state should be kept in as top-level a component as possible. In this case, that'll be our FruitApp. "How can nested components change the state of the application then?", I hear you whine. Don't worry. Just as owners pass their own data to ownees through props, they can also pass __state-changing functions__ down to ownees. A top-level stateful component can define its own methods with 'setState()' within them and give them to lower-level components for usage.
 
-To recap, any time we want the application to respond to some action or input (be it a click, or a server response), we'll need to change the state of the application. But we should change state in as few places as possible. We're keeping state in FruitApp, so we need to be able to set the state of FruitApp from places in the app. We do that by passing callbacks down through props. Let's return to our FruitListItem and sort out those increment and decrement buttons!
+To recap, any time we want the application to respond to some action or input (be it a click, or a server response), we'll need to change the state of the application. But we should keep state in as few places as possible. We're keeping state in FruitApp, so we need to be able to set the state of FruitApp from other places in the app. We do that by defining functions that can change the state of FruitApp within FruitApp, then passing those down as callbacks down through props. Let's return to our FruitListItem and sort out those increment and decrement buttons!
 
 ### Increment and Decrement
-Let's define an action in FruitApp that we can pass down to FruitListItem. This function will take an id, look for a fruit in our current state with that id, increment its quantity, and call `setState()` to re-render the application. There are a number of ways we could do this, but since fruities is an array, I'm going to `.forEach()` over it, and if an element's id matches the id passed as an argument, I'll increment the value. I'll then push every element to a newFruities array, and then set the state to the new array.  
+Let's define a method in FruitApp that we can pass down to FruitListItem. This function will take an id, look for a fruit in our current state with that id, increment its quantity, and call `setState()` to re-render the application. There are a number of ways we could do this, but since fruities is an array, I'm going to `.forEach()` over it, and if an element's id matches the id passed as an argument, I'll increment the value. I'll then push every element to a newFruities array, and then set the state to the new array.  
 ```js
 incrementQuantity: function(id) {
 	var newFruities = [];
@@ -151,10 +151,10 @@ Uh oh! Something's gone wrong!
 
 
 ### Troubles with `this`
-The problem lies in FruitList, and the problem lies with `this`. I'm sure you know what I mean when I say you'll need to `.bind()` the value of `this` to `this`.  
-`map()` & `forEach()` each take two parameters. I'll assume that you know that the first is a callback used for producing the new array element or doing something respectively. The second is a value to use as `this` within the callback. An alternative way of doing this is to call `.bind()` on the function, passing as an argument whatever you want that function to use as `this`. But even so, why do we need to do this?  
+The problem lies in FruitList, and the problem lies with [`this`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this). I'm sure you know what I mean when I say you'll need to [`.bind()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) the value of `this` to `this`. Maybe not.  
+[`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) & [`forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) each take two arguments. I'll assume that you know that the first is a callback used for producing the new array element or doing something once per array element respectively. The second is a value to use as `this` within the callback. An alternative way of doing this is to call `.bind()` on the function, passing as an argument whatever you want that function to use as `this`. But even so, why do we need to do this?  
 The callback within our `forEach()` isn't setting what `this` should point to, nor is it an object method (in which case `this` would point to the object that is calling the method). Hence `this` panics, gets all wonky and points to the global object (i.e. the window). But our window doesn't have the props we need! Our component does. So we need to point to our component, and tell our callback within `.forEach()` to point to it too whenever it uses `this`. Luckily for us, `this` outside of the callback points to the component.   
-Why? Look at the render function. It's got a colon sat next to it, as you might if you were in the hospital waiting room. What does that mean? It means it's a method of an object. What object? The FruitList component! So `this` within the context of the render function (or any other function directly inside the component) points to the component. But once some other execution context is created (i.e. a function is called) that isn't directly within the component, or isn't called by the component itself, `this` will stop pointing to the component on its own.  
+Why? Look at the render function. It's got a colon sat next to it, as you might if you were in the hospital waiting room (gd joke m8). What does that mean? It means it's a method of an object. What object? The rendered FruitList component! So `this` within the context of the render method (or any other method directly inside the component) points to the component. But once some other execution context is created (i.e. a we create some other function) that isn't directly within the component, or isn't called by the component itself, `this` will stop pointing to the component on its own.  
 So what do we do? Either use `.bind`: 
 ```js
 function(fruit) {
@@ -182,7 +182,7 @@ decrementQuantity: function(id) {
 }
 ```    
 
-Sweet. We can increment, decrement, and get rid of individual items. Now let's figure out how to add items to our list. To the header!
+Sweet. We can increment, decrement, and get rid of individual items. There was doubtless an easier way to do this, but the more complicated the better, am I right? Now let's figure out how to add items to our list. To the header!
 
 ##WIP
 
